@@ -169,7 +169,7 @@ public class Game {
     }
 
     private boolean isHighProbabilityMessagesAvailable() throws IOException {
-        if (isOutOfMessages()) updateMessages();
+        if (messageBoard == null) updateMessages();
         for (ReputationAffectingEnum reputationAffectingEnum : Arrays.asList(LOW_REP_AFFECT, MEDIUM_REP_AFFECT)) {
             Map<SuccessRateEnum, List<Message>> successRateEnumListMap = messageBoard.getOrDefault(reputationAffectingEnum, null);
             if (successRateEnumListMap != null) {
@@ -252,7 +252,7 @@ public class Game {
         ReputationAffectingEnum repEnum = ReputationAffectingEnum.getRepAffectEnum(repIndx);
         SuccessRateEnum succesEnum = SuccessRateEnum.getSuccessRateEnum(successIndx);
 
-        if (isOutOfMessages()) updateMessages();
+        if (messageBoard == null || messageBoard.isEmpty()) updateMessages();
 
         if (repEnum != null && succesEnum != null) {
             Map<SuccessRateEnum, List<Message>> successRateMap = messageBoard.getOrDefault(repEnum, null);
@@ -264,17 +264,6 @@ public class Game {
             }
         }
         return null;
-    }
-
-    private boolean isOutOfMessages() {
-        for (ReputationAffectingEnum repEnum : ReputationAffectingEnum.values()) {
-            for (SuccessRateEnum successRateEnum : SuccessRateEnum.values()) {
-                if (!messageBoard.get(repEnum).get(successRateEnum).isEmpty()) {
-                    return false;
-                }
-            }
-        }
-        return true;
     }
 
     private void buyUpgradesOptionally() throws IOException {
