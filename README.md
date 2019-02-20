@@ -6,8 +6,8 @@ This is my proposed solution to the Bigbank AS test task. The proposed solution 
 
 ### Time to develop
 * 242 minutes - Analysis and experimentation
-* 988 minutes - Developing, debugging, testing, documenting
-Total: 1230 minutes ( 20h 30 min )
+* 988 minutes - Developing, debugging, testing, documenting <br />
+<b>Total: 1230 minutes ( 20h 30 min )</b>
 
 ## The solution
 ### Reputation and Success rate validator
@@ -41,7 +41,7 @@ In the future, there could be different options to try
 * [Java 1.8](http://www.oracle.com)
 * [JUnit 4](https://junit.org/junit4/)
 * [Apache HttpComponents](http://hc.apache.org/)
-* [JSON in Java] (https://github.com/stleary/JSON-java/)
+* [JSON in Java](https://github.com/stleary/JSON-java)
 * A stable internet connection
 
 ## Running the tests
@@ -65,7 +65,7 @@ For example, if I have two messages, then the easier message would be choosed.
 * [Java 1.8](http://www.oracle.com) - Programming language used for the task
 * [JUnit 4](https://junit.org/junit4/) - Test framework used for tests
 * [Apache HttpComponents](http://hc.apache.org/) - Library used for POST and GET request
-* [JSON in Java] (https://github.com/stleary/JSON-java) - Library used for JSON in Java
+* [JSON in Java](https://github.com/stleary/JSON-java) - Library used for JSON in Java
 
 ## Author
 
