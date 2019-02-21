@@ -1,7 +1,7 @@
 package main.game.tools;
 
 public final class Consts {
-    // Numbers
+    // Numbers (configurable)
     public static final Integer OUT_OF_LIVES = 0;
     public static final Integer MAX_LIVES_TO_KEEP = 3;
     public static final Integer HEALTH_POTION_COST = 50;

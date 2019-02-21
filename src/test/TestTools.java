@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class TestTools {
+class TestTools {
 
-    public static List<Message> generateMessages() {
+    static List<Message> generateMessages() {
         List<Message> messages = new ArrayList<>();
         for (ReputationAffectingEnum reputationAffectingEnum : ReputationAffectingEnum.values()) {
             for (SuccessRateEnum successRateEnum : SuccessRateEnum.values()) {

@@ -6,28 +6,34 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-// Kasutatud https://github.com/stleary/JSON-java ja Apache HTTP
 public class Main {
+    private static final Integer NR_OF_GAMES = 1;
+
     public static void main(String[] args) throws IOException {
         // Starts a new main.game
-        List<Game> games = new ArrayList<>(1);
-        for (int i = 0; i < 1; i++) {
+        List<Game> games = new ArrayList<>(NR_OF_GAMES);
+
+        for (int i = 0; i < NR_OF_GAMES; i++) {
             Game game = new Game();
             game.startGame();
             games.add(game);
         }
+
         for (Game game : games) {
             System.out.println(game);
         }
+
         analyzeScores(games);
     }
 
-    private static void showLogs(Game score) {
-        score.getLogs().forEach(System.out::println);
+    // Use to see how all the game logs
+    private static void showLogs(Game game) {
+        game.getLogs().forEach(System.out::println);
     }
 
     private static void analyzeScores(List<Game> scores) {
         double aLevel = 0.0, aScore = 0.0, aTurn = 0.0;
+
         for (Game score : scores) {
             aLevel += score.getLevel();
             aScore += score.getScore();

@@ -80,7 +80,8 @@ public class Mapper {
             Item item = mapItem((JSONObject) storage);
             if (item != null) items.add(item);
             return new Shop(items);
-        } else if (storage instanceof JSONArray) {
+        }
+        if (storage instanceof JSONArray) {
             JSONArray shopStorage = (JSONArray) storage;
             int nrOfItems = shopStorage.length();
             if (nrOfItems > 0) {

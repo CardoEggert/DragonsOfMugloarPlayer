@@ -19,7 +19,7 @@ public class MessageBoardTests {
     private Game testGame;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         testGame = new Game();
         testGame.fillMessageBoard(generateMessages());
     }

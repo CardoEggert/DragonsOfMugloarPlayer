@@ -121,6 +121,7 @@ public class Game {
 
     private Item findMostExpensiveItemWithGoldAmount(Shop shop, Integer goldAmount) {
         Item mostExpensiveItem = new Item(null, null, 0);
+
         for (Item storageItem : shop.getStorage()) {
             if (goldAmount >= storageItem.getCost() && storageItem.getCost() >= mostExpensiveItem.getCost()) {
                 mostExpensiveItem = storageItem;
@@ -129,7 +130,7 @@ public class Game {
         return mostExpensiveItem;
     }
 
-    private void replenishLivesIfNecessery() throws IOException {
+    private void replenishLivesIfNecessary() throws IOException {
         boolean boughtHealthPotion = false;
         while (isHealthPotionsNeeded()) {
             if (!buyHealthPotion()) {
@@ -145,8 +146,8 @@ public class Game {
     }
 
     private boolean buyHealthPotion() throws IOException {
-        Shop shopInventory = browseShop();
-        Item healthPotion = findHealthPotion(shopInventory);
+        Item healthPotion = findHealthPotion(browseShop());
+
         if (healthPotion != null) {
             return buyItem(healthPotion, this.gold);
         }
@@ -155,8 +156,7 @@ public class Game {
 
     private void buyUpgrades() throws IOException {
         if (isBuyingUpgradesPossible()) {
-            Item bestShopItemWithGold;
-            bestShopItemWithGold = findMostExpensiveItemWithGoldAmount(browseShop(), this.gold);
+            Item bestShopItemWithGold = findMostExpensiveItemWithGoldAmount(browseShop(), this.gold);
             if (bestShopItemWithGold != null && isTwoHealthPotionsAffordableAfterPurchase(bestShopItemWithGold.getCost())) {
                 buyItem(bestShopItemWithGold, this.gold);
                 updateMessages();
@@ -170,6 +170,7 @@ public class Game {
 
     private boolean isHighProbabilityMessagesAvailable() throws IOException {
         if (messageBoard == null) updateMessages();
+
         for (ReputationAffectingEnum reputationAffectingEnum : Arrays.asList(LOW_REP_AFFECT, MEDIUM_REP_AFFECT)) {
             Map<SuccessRateEnum, List<Message>> successRateEnumListMap = messageBoard.getOrDefault(reputationAffectingEnum, null);
             if (successRateEnumListMap != null) {
@@ -215,6 +216,7 @@ public class Game {
 
     private void findBestAdsToSolve() throws IOException {
         Message bestMessage = findBestAd();
+
         if (bestMessage != null) {
             solveMessage(bestMessage);
         }
@@ -227,16 +229,17 @@ public class Game {
         // If no more easy ones, check if, HIGH_AFFECT ONEs are available
         if (bestMessage == null) {
             bestMessage = stepThroughAds(HIGH_REP_AFFECT, HIGH_REP_AFFECT, VERY_HIGH_SUCCESS_RATE, HIGHER_THAN_MEDIUM_SUCCESS_RATE);
-            // If nothing is found, suicide
-            if (bestMessage == null) {
-                bestMessage = stepThroughAds(LOW_REP_AFFECT, HIGH_REP_AFFECT, HIGHER_THAN_MEDIUM_SUCCESS_RATE, ZERO_SUCCESS_RATE);
-            }
+        }
+        // If nothing is found, suicide
+        if (bestMessage == null) {
+            bestMessage = stepThroughAds(LOW_REP_AFFECT, HIGH_REP_AFFECT, HIGHER_THAN_MEDIUM_SUCCESS_RATE, ZERO_SUCCESS_RATE);
         }
         return bestMessage;
     }
 
     private Message stepThroughAds(ReputationAffectingEnum lowRepAffect, ReputationAffectingEnum maxRepAffect, SuccessRateEnum successRate, SuccessRateEnum maxSuccessRate) throws IOException {
         Message bestMessage;
+
         for (int successRateIndex = successRate.getSuccessRate(); successRateIndex >= maxSuccessRate.getSuccessRate(); successRateIndex--) {
             for (int reputationAffectIndex = lowRepAffect.getRepAffectLevel(); reputationAffectIndex <= maxRepAffect.getRepAffectLevel(); reputationAffectIndex++) {
                 bestMessage = findMessage(reputationAffectIndex, successRateIndex);
@@ -248,9 +251,9 @@ public class Game {
         return null;
     }
 
-    private Message findMessage(int repIndx, int successIndx) throws IOException {
-        ReputationAffectingEnum repEnum = ReputationAffectingEnum.getRepAffectEnum(repIndx);
-        SuccessRateEnum succesEnum = SuccessRateEnum.getSuccessRateEnum(successIndx);
+    private Message findMessage(int repIndex, int successIndex) throws IOException {
+        ReputationAffectingEnum repEnum = ReputationAffectingEnum.getRepAffectEnum(repIndex);
+        SuccessRateEnum succesEnum = SuccessRateEnum.getSuccessRateEnum(successIndex);
 
         if (messageBoard == null || messageBoard.isEmpty()) updateMessages();
 
@@ -267,7 +270,7 @@ public class Game {
     }
 
     private void buyUpgradesOptionally() throws IOException {
-        replenishLivesIfNecessery();
+        replenishLivesIfNecessary();
         buyUpgrades();
     }
 
